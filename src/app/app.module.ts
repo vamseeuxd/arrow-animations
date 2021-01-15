@@ -9,6 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BootstrapModule } from './bootstrap/bootstrap.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +19,9 @@ import { MaterialModule } from './material/material.module';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    BrowserAnimationsModule,
+    BootstrapModule
   ],
   providers: [
     StatusBar,
