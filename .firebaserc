@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "arrow-erp": {
+      "hosting": {
+        "app": [
+          "arrow-erp"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "arrow-erp"
+  }
+}
