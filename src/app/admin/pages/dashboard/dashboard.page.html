@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-back-button slot="start"></ion-back-button>
+    <ion-title>Admin Dashboard</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list lines="full">
+        <ion-item (click)="openItem('technologies')">
+            <ion-label>Technologies</ion-label>
+        </ion-item>
+        <ion-item (click)="openItem('batches')">
+            <ion-label>Batches</ion-label>
+        </ion-item>
+        <ion-item (click)="openItem('students')">
+            <ion-label>Students</ion-label>
+        </ion-item>
+        <ion-item (click)="openItem('faculties')">
+            <ion-label>Faculties</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-back-button slot="start"></ion-back-button>
+        <ion-title>Manage Technologies</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <!--*ngFor="let item of items | async"-->
+
+    <ion-list>
+        <ion-item *ngFor="let item of items | async">
+            <ion-label>
+                {{item.name}}
+            </ion-label>
+            <button mat-icon-button color="warn" (click)="deleteTechnology(item)">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button (click)="dialog.open(editTechnologyTemplate,{data:item})">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="openItem('topics',item.id)">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+        </ion-item>
+    </ion-list>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="dialog.open(addNewTechnologyTemplate)">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+</ion-content>
+
+<ng-template #addNewTechnologyTemplate>
+
+    <form class="row" #addTechnologyForm="ngForm">
+        <h1 mat-dialog-title>Add New Technology</h1>
+        <mat-form-field class="col-12">
+            <mat-label>Technology Name</mat-label>
+            <input autocomplete="off" matInput placeholder="Technology Name" name="name" ngModel required>
+        </mat-form-field>
+        <div class="col-12 text-right">
+            <button type="button" (click)="dialog.closeAll();" mat-raised-button class="mr-2">Cancel</button>
+            <button type="button" [disabled]="addTechnologyForm.invalid"
+                    (click)="saveTechnology(addTechnologyForm)" mat-raised-button color="primary">Save
+            </button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #editTechnologyTemplate let-data>
+
+    <form class="row" #editTechnologyForm="ngForm">
+        <h1 mat-dialog-title>Edit Technology <code>({{data.name}})</code></h1>
+        <mat-form-field class="col-12">
+            <mat-label>Technology Name</mat-label>
+            <input autocomplete="off" matInput placeholder="Technology Name" name="name" [ngModel]="data.name" required>
+        </mat-form-field>
+        <div class="col-12 text-right">
+            <button type="button" (click)="dialog.closeAll();" mat-raised-button class="mr-2">Cancel</button>
+            <button type="button" [disabled]="editTechnologyForm.invalid || data.name == editTechnologyForm.value.name"
+                    (click)="updateTechnology(editTechnologyForm,data)" mat-raised-button color="primary">Save
+            </button>
+        </div>
+    </form>
+</ng-template>
