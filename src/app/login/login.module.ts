@@ -4,9 +4,9 @@ import {FormsModule} from '@angular/forms';
 
 import {IonicModule} from '@ionic/angular';
 
-import {FolderPageRoutingModule} from './folder-routing.module';
+import {LoginPageRoutingModule} from './login-routing.module';
 
-import {FolderPage} from './folder.page';
+import {LoginPage} from './login.page';
 import {SharedModule} from '../share-modules';
 
 @NgModule({
@@ -15,9 +15,9 @@ import {SharedModule} from '../share-modules';
         FormsModule,
         SharedModule,
         IonicModule,
-        FolderPageRoutingModule
+        LoginPageRoutingModule
     ],
-    declarations: [FolderPage]
+    declarations: [LoginPage]
 })
-export class FolderPageModule {
+export class LoginPageModule {
 }

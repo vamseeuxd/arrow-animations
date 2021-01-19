@@ -1,29 +1,81 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
-      <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+    <ng-container *ngIf="auth.user | async as user; else showLogin">
+        <ion-split-pane contentId="main-content">
+            <ion-menu contentId="main-content" type="overlay">
+                <ion-content>
+                    <ion-list id="inbox-list">
+                        <ion-list-header>Inbox</ion-list-header>
+                        <ion-note>hi@ionicframework.com</ion-note>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+                        <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+                            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]"
+                                      lines="none" detail="false" [class.selected]="selectedIndex == i">
+                                <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                                <ion-label>{{ p.title }}</ion-label>
+                            </ion-item>
+                        </ion-menu-toggle>
+                    </ion-list>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
+                    <ion-list id="labels-list">
+                        <ion-list-header>Labels</ion-list-header>
 
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane>
+                        <ion-item *ngFor="let label of labels" lines="none">
+                            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
+                            <ion-label>{{ label }}</ion-label>
+                        </ion-item>
+                    </ion-list>
+                </ion-content>
+            </ion-menu>
+            <ion-router-outlet id="main-content"></ion-router-outlet>
+        </ion-split-pane>
+    </ng-container>
+    <ng-template #showLogin>
+        <ion-content>
+            <!--<ngx-auth-firebaseui [providers]="providers"></ngx-auth-firebaseui>-->
+            <div class="d-flex vw-100 vh-100 align-items-center justify-content-center">
+                <button mat-raised-button color="warn" (click)="login(userRegistration)">
+                    <i class="fa fa-google mr-1"></i>
+                    Login with Google
+                </button>
+                <!--<firebase-ui #firebaseUi></firebase-ui>-->
+            </div>
+        </ion-content>
+    </ng-template>
+    <ng-template #userRegistration let-data>
+
+        <form class="row" #userRegistrationForm="ngForm">
+
+            <h1 mat-dialog-title>
+                User Registration Form
+                <img width="60" [src]="data.photoURL" class="img-thumbnail float-right rounded-circle">
+            </h1>
+            <mat-form-field class="col-12">
+                <mat-label>Display Name</mat-label>
+                <input autocomplete="off" matInput placeholder="Display Name" name="displayName" [ngModel]="data.displayName" required>
+            </mat-form-field>
+            <mat-form-field class="col-12">
+                <mat-label>Email</mat-label>
+                <input autocomplete="off" matInput type="email" email placeholder="Email" name="email" [ngModel]="data.email" required disabled>
+            </mat-form-field>
+            <mat-form-field class="col-12">
+                <mat-label>Mobile Number</mat-label>
+                <span matPrefix>+91 &nbsp;</span>
+                <input autocomplete="off" matInput placeholder="Mobile Number" type="tel"  pattern="[0-9]{1,10}" minlength="10" maxlength="10" name="phoneNumber" [ngModel]="data.phoneNumber" required>
+                <div id="recaptcha-container"></div>
+            </mat-form-field>
+            <mat-form-field class="col-12">
+                <mat-label>Date of Birth</mat-label>
+                <input autocomplete="off" matInput [matDatepicker]="picker" readonly (click)="picker.open()" required name="dateOfBirth"
+                       ngModel>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker touchUi #picker></mat-datepicker>
+            </mat-form-field>
+
+            <div class="col-12 text-right">
+                <button type="button" (click)="logout();dialog.closeAll();" mat-raised-button class="mr-2">Cancel</button>
+                <button type="button" [disabled]="userRegistrationForm.invalid" (click)="saveUserInfo(userRegistrationForm,data)" mat-raised-button color="primary">Save</button>
+            </div>
+
+        </form>
+    </ng-template>
 </ion-app>

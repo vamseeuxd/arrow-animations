@@ -24,3 +24,24 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~font-awesome/css/font-awesome.min.css";
+@import '~firebaseui/dist/firebaseui.css';
+
+*:focus {
+  outline: none !important;
+}
+
+
+ngx-auth-firebaseui-user button.mat-focus-indicator.go-back-button.action-button.mat-stroked-button.mat-button-base.ng-star-inserted {
+  display: none;
+}
+
+
+ngx-auth-firebaseui-user button.mat-focus-indicator.mat-button.mat-button-base.mat-warn.ng-star-inserted {
+  display: none;
+}
+
+ngx-auth-firebaseui-user button.mat-focus-indicator.edit-button.mat-raised-button.mat-button-base.mat-primary.ng-star-inserted {
+  display: none;
+}
